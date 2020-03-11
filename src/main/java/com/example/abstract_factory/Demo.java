@@ -1,0 +1,22 @@
+package com.example.abstract_factory;
+
+public class Demo {
+    /**
+     * Application picks the factory type and creates it in run time (usually at
+     * initialization stage), depending on the configuration or environment
+     * variables.
+     */
+    private static Application configureApplication() {
+        Application app;
+        GUIFactory factory;
+        String osName = System.getProperty("os.name").toLowerCase();
+        factory = osName.contains("mac") ? new MacOSFactory() : new WindowsFactory();
+        app = new Application(factory);
+        return app;
+    }
+
+    public static void main(String[] args) {
+        Application app = configureApplication();
+        app.paint();
+    }
+}
